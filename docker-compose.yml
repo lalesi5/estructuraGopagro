@@ -1,0 +1,19 @@
+version: '3.5'
+
+
+services:
+  postgres:
+    container_name: GOPAGRO
+    image: postgres:15-alpine3.18
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+    volumes:
+       - /hostvolume:/data/postgres
+    ports:
+      - "5438:5432"
+
+volumes:
+  postgres-db:
+    driver: local

@@ -1,0 +1,40 @@
+Procedimiento para agregar pcrypt a postgresSql.
+
+1. Acceder como superusuario de postgres. Por default es el usuario postgres.
+
+sudo su - postgres
+2. Conectarse a la instancia de postgres como supersurio.
+
+psql -U postgres 
+
+(11.2 (Ubuntu 11.2-1.pgdg18.04+1))Type "help" for help.
+3. Listar las bases (Opcional). Ejecutar el comando \l.
+
+postgres=# \l
+                                   List of databases
+    Name     |   Owner   | Encoding |   Collate   |    Ctype    |   Access privileges   
+-------------+-----------+----------+-------------+-------------+-----------------------
+ aurlendev   | aurlendev | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ dbaurlendev | aurlendev | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ postgres    | postgres  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ template0   | postgres  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+             |           |          |             |             | postgres=CTc/postgres
+ template1   | postgres  | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+             |           |          |             |             | postgres=CTc/postgres
+(5 rows)
+ 
+
+4. Las extensiones se instalan de manera independiente en cada base. En este ejemplo se instalara pgcrypto en la base dbaurlendev. Conectarse la base el cual queremos habilitar la extensión. Ejecutar comando \c nombredebasededatos.
+
+\c dbaurlendev;
+5. Ejecutar el comando específico para habilitar la extensión. En este caso el comando para habilitar pgcrypto es CREATE EXTENSION IF NOT EXISTS “pgcrypto”;
+
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE EXTENSION
+6. Probar, usando un usuario normal de base de datos, con el comando SELECT gen_random_uuid();
+
+SELECT gen_random_uuid();
+           gen_random_uuid            
+--------------------------------------
+ 0e2f81e0-d422-42e8-9cac-c34a5f1202bb
